@@ -1,24 +1,22 @@
-/// DUVIDAS e TODO:
-// * Para casos como "OcultaFaces (arrayFaces)", altero as faces do proprio array ou as cria um array novo de faces?
-// R: Uma superclasse de faces que carrega informacoes de multiplos momentos da face
+# DUVIDAS e DISCUSOES:
+    // * Para casos como "OcultaFaces (arrayFaces)", altero as faces do proprio array ou as cria um array novo de faces?
+    // R: Uma superclasse de faces que carrega informacoes de multiplos momentos da face
 
-// * Processo de ocultacao de linhas??
-// POR ENQUANTO SOMENTE POR OCULTACAO DAS FACES NO PRE FILTRO
+    // * Processo de ocultacao de linhas??
+    // POR ENQUANTO SOMENTE POR OCULTACAO DAS FACES NO PRE FILTRO
 
-// * Escolher os pontos em que é importante salvar as faces.
-//  * Salvar um modelo no SRU como "constante"
-//  * SUGERIR: a SUPERFACE trabalhe com as faces visiseis, já que caso as visiveis mudem TDO precisa ser recalculado
-//  * Salvar um conjunto de faces no SRT
+    // * Escolher os pontos em que é importante salvar as faces.
+    //  * Salvar um modelo no SRU como "constante"
+    //  * SUGERIR: a SUPERFACE trabalhe com as faces visiseis, já que caso as visiveis mudem TDO precisa ser recalculado
+    //  * Salvar um conjunto de faces no SRT
 
-// * Colocar um variavel de DIRTY na SUPERFACE
+    // * Colocar um variavel de DIRTY na SUPERFACE
 
-// * Projecao axonometrica
-// * Projecao paralela axonometrica
-// * Projecao perspectiva
+    // * Projecao axonometrica
+    // * Projecao paralela axonometrica
+    // * Projecao perspectiva
 
-// * Heightmap com COR????
-
-/*********** FASE 1 ************/
+    // * Heightmap com COR????
 
 # REQUISITO 1
 
