@@ -20,7 +20,7 @@
 
 /*********** FASE 1 ************/
 
-/// REQUISITO 1
+# REQUISITO 1
 
     /*
         Converter um heightmap para uma matriz de pontos (MALHA RETANGULAR TRIANGULAR)
@@ -60,7 +60,7 @@
     */
     function Salvar (matrizPontos) {}
 
-/// OUTROS 
+# OUTROS 
     /*
         Converte uma matriz de pontos para um array de faces
             (acho q qual face esta conectada com qual nao é importate)
@@ -84,7 +84,7 @@
     function JanelaEixoInvertido (arrayFaces) {}
     function JanelaEixoNormal (arrayFaces) {}s
 
-/// REQUISITO 3
+# REQUISITO 3
 
     /*
         Oculta as faces (pre-filtro) não visiveis
