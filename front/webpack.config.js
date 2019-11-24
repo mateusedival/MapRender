@@ -1,7 +1,7 @@
 module.exports = {
-  entry: './main.js',
+  entry: './src/main.js',
   output: {
-    path: __dirname,
+    path: __dirname + /public/,
     filename: 'bundle.js',
   },
   module: {
@@ -15,4 +15,8 @@ module.exports = {
         }
     ],
   },
+  devServer: {
+    contentBase: __dirname + /public,
+    port: 9000
+  }
 };

@@ -1,0 +1,39 @@
+div.center {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+div.ext-box {
+  display: table;
+  width:100%;
+}
+
+div.int-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#upper-child-left {
+  padding: 0;
+  margin: 0;
+  max-width: 400px;
+  border: 1px solid;
+}
+
+button {
+  padding: 10px;
+  width: 110px;
+  border-radius: 5px;
+  margin: 5px 20px 5px 0px;
+  border: 2px solid;
+  background: #fff;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
