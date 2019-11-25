@@ -33,9 +33,9 @@
 
   ​	_function FiltroMedia (matrizPontos) {}_ 
 
-> Input: Matriz de pontos
->
-> Output: void
+  > Input: Matriz de pontos
+  >
+  > Output: void
 
 * Randomizar pontos para criar o heightmap
 
