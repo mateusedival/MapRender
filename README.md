@@ -1,106 +1,103 @@
-# DUVIDAS e DISCUSOES:
-    // * Para casos como "OcultaFaces (arrayFaces)", altero as faces do proprio array ou as cria um array novo de faces?
-    // R: Uma superclasse de faces que carrega informacoes de multiplos momentos da face
+# Trabalho de Computação Gráfica
 
-    // * Processo de ocultacao de linhas??
-    // POR ENQUANTO SOMENTE POR OCULTACAO DAS FACES NO PRE FILTRO
+![]( https://drive.google.com/uc?export=view&id=1nPhI1KINbArF_cTdJWRvmQapi0p7nqiI)
 
-    // * Escolher os pontos em que é importante salvar as faces.
-    //  * Salvar um modelo no SRU como "constante"
-    //  * SUGERIR: a SUPERFACE trabalhe com as faces visiseis, já que caso as visiveis mudem TDO precisa ser recalculado
-    //  * Salvar um conjunto de faces no SRT
 
-    // * Colocar um variavel de DIRTY na SUPERFACE
 
-    // * Projecao axonometrica
-    // * Projecao paralela axonometrica
-    // * Projecao perspectiva
+## TO-DO LIST
 
-    // * Heightmap com COR????
+- [ ] ImagemParaMatriz (imagem)
+- [ ] FiltroMedia (matrizPontos)
+- [ ] RandomizaHeightMap (x, y)
+- [ ] Salvar (matrizPontos)
+- [ ] MatrizPontosParaFaces (matrizPontos)
+- [ ] SRU_SRT (arrayFaces)
+- [ ] OcultarFaces (arrayFaces)
+- [ ] ProjecaoAxonometrica (arrayFaces) 
+- [ ] ProjecaoPerspectiva (arrayFaces)
+- [ ] VisualizarWireframe (arrayFaces)
 
-# REQUISITO 1
+# Funções 
 
-    /*
-        Converter um heightmap para uma matriz de pontos (MALHA RETANGULAR TRIANGULAR)
-        Input: Arquivo com extensao .jorjinho que vem do front
-        Output: Matriz de pontos
-        Erro:
-            * Imagem com extensao errada
-            * imagem com tamanho nulo
-    */
-    function ImagemParaMatriz (imagem) {} // vulgo CARREGAR
-    
-    /*
-        Randomizar pontos para criar o heightmap
-        Input:  x -> quantidade de pixels em x
-                y -> quantidade de pixels em y
-        Output: Matriz de pontos
-        Erro:
-            * X ou Y igual a 0
-            * X * Y superior a N (a gente calcula um limite para o tamanho da imagem)
-    */
-    function RandomizaHeightMap (x, y) {}
+* Converter um heightmap para uma matriz de pontos (MALHA RETANGULAR TRIANGULAR)
 
-    /*
-        Procedimento que efetua algum filtro de media para suaviar os pontos do terreno randomizado
-        (Nao intendi se o usuario escolhe se esse procedimento vai ser aplicado ou se ele SEMPRE é aplicado)
-        Input: Matriz de pontos
-        Output: Vazio
-    */
-    function FiltroMedia (matrizPontos) {}
+  ​	_function ImagemParaMatriz (imagem) {}_ 
 
-    /*
-        Salvar os pontos em um heightmap com extensao .jorjinho
-        Input: Matriz de pontos
-        Output: Valor booleano para indicar sucesso ou falha na gravacao
-        Erros: 
-            * Matriz vazia
-    */
-    function Salvar (matrizPontos) {}
+  > Input: Arquivo com extensio _.jorginho_ que vem do front
+  >
+  > Output: Matriz de pontos
 
-# OUTROS 
-    /*
-        Converte uma matriz de pontos para um array de faces
-            (acho q qual face esta conectada com qual nao é importate)
-        Input: Matriz de pontos
-        Output: Um array de Faces() com suas respectivas Areasta()
-    */
-    function MatrizPontosParaFaces (matrizPontos) {}
+  
 
-    /*
-        Converte os pontos das faces de SRU para SRT
-        Input: Matriz de pontos
-        Output: 
-    */
-    function SRU_SRT (arrayFaces) {}
+* Procedimento que efetua algum filtro de media para suavizar os pontos do terreno randomizado
 
-    OUUUU
+  ​	_function FiltroMedia (matrizPontos) {}_ 
 
-    function SRU_SRT (arrayFaces, projecao_Mproj, janela_Mjp) {}
-    function ProjecaoParalelaAxonometrica (arrayFaces) {}
-    function ProjecaoPerspectiva (arrayFaces) {}
-    function JanelaEixoInvertido (arrayFaces) {}
-    function JanelaEixoNormal (arrayFaces) {}s
+> Input: Matriz de pontos
+>
+> Output: void
 
-# REQUISITO 3
+* Randomizar pontos para criar o heightmap
 
-    /*
-        Oculta as faces (pre-filtro) não visiveis
-        Input: Matriz de pontos
-        Output: nulo
-    */
-    function OcultaFaces (arrayFaces) {}
+  _function RandomizaHeightMap (x, y) {}_ 
 
-    /*
-        Alterar as faces para uma PROJECAO PARALELA AXONOMETRICA
-        Input: Matriz de pontos
-        Output: Matriz de pontos
-    */
-    function ProjecaoParalelaAxonometrica (arrayFaces) {}
+  > Input: (x, y) -> quantidade de pixels em X e em Y
+  >
+  > Output: Matriz de pontos
 
-    /*
-        Plotar as faces no modelo de wireframe com ocultação de faces em projeção paralela axonometrica
-        Input: Matriz de pontos
-        Output: Matriz de pontos
-    */
-    function VisualizarWireframe (arrayFaces) {}
+* Salvar os pontos em um heightmap com extensão _.jorginho_ 
+
+  _function Salvar (matrizPontos) {}_ 
+
+  > Input: Matriz de pontos
+  >
+  > Output: Valor booleano para indicar sucesso ou falha na gravação
+
+* Converte uma matriz de pontos par um array de faces
+
+  _function MatrizPontosParaFaces (matrizPontos) {}_ 
+
+  > Input: Matriz de pontos
+  >
+  > Output: Um array de faces com suas respectivas arestas
+
+* Converte os pontos das faces de SRU para SRT
+
+  _function SRU_SRT (arrayFaces) {}_ 
+
+  > Input: Vetor de faces
+  >
+  > Output:  Vetor de faces (distinto da entrada)
+
+* Oculta as Faces (pré-filtro) não visiveis
+
+  _function OcultarFaces (arrayFaces) {}_ 
+
+  > Input: Vetor de faces
+  >
+  > Output: Vetor de faces (distinto da entrada)
+
+* Cria um novo vetor de faces em projeção AXONOMÉTRICA 
+
+  _function ProjecaoAxonometrica (arrayFaces) {}_ 
+
+  > Input: Vetor de faces
+  >
+  > Output: Vetor de faces (distinto da entrada)
+
+* Cria um novo vetor de faces em projeção PERSPECTIVA
+
+  _function ProjecaoPerspectiva (arrayFaces) {}
+
+  > Input: Vetor de faces
+  >
+  > Output: Vetor de faces (distinto da entrada)
+
+* Plotar as faces no modelo wireframe
+
+  _function VisualizarWireframe (arrayFaces) {}_ 
+
+  > Input: Vetor de faces
+  >
+  > Output: Matriz de pontos
+
