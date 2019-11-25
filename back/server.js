@@ -21,6 +21,9 @@ app.get("/points", (req, res) => {
     }
   ]);
 });
+app.get("/file", (req, res) => {
+  res.download('./index.html')
+});
 
 app.listen(8081, () => console.log('listening in http://localhost:8081'));
 
