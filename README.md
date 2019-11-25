@@ -2,6 +2,9 @@
 
 ![]( https://drive.google.com/uc?export=view&id=1nPhI1KINbArF_cTdJWRvmQapi0p7nqiI)
 
+## Diagrama
+![]( https://drive.google.com/uc?export=view&id=1HRiYhzkI1L5ObAVb9yjIYrA6eEc0f_IY)
+
 
 
 ## TO-DO LIST
