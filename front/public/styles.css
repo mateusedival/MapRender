@@ -14,11 +14,24 @@ div.int-box {
   vertical-align: middle;
 }
 
-#upper-child-left {
+#left {
+  width: 50%;
+  border: 1px solid;
+}
+
+#right {
   padding: 0;
   margin: 0;
-  max-width: 400px;
-  border: 1px solid;
+  width: 50%;
+}
+
+#div-canvas {
+  padding: 30px;
+}
+
+#all {
+  padding: 0;
+  margin: 0;
 }
 
 button {
@@ -35,5 +48,5 @@ button {
 }
 
 button:hover {
-  opacity: 0.8;
+  opacity: 0.5;
 }
