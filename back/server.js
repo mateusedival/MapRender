@@ -5,6 +5,24 @@ const router = express.Router();
 
 app.use(require('cors')());
 
+//Pontos em WireFrame
+app.get("/pointsW", (req, res) => {
+  res.json([
+    {
+      x: 200,
+      y: 300
+    },
+    {
+      x: 205,
+      y: 305
+    },
+    {
+      x: 198,
+      y: 297
+    }
+  ]);
+});
+
 app.get("/points", (req, res) => {
   res.json([
     {
@@ -21,6 +39,7 @@ app.get("/points", (req, res) => {
     }
   ]);
 });
+
 app.get("/file", (req, res) => {
   res.download('./index.html')
 });
