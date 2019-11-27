@@ -1,5 +1,4 @@
-function ProdutoEscalar(aresta1, aresta2)
-{
+function ProdutoEscalar(aresta1, aresta2) {
     let v1 = aresta1.CalculoVetor();
     let v2 = aresta2.CalculoVetor();
 
@@ -11,8 +10,7 @@ function ProdutoEscalar(aresta1, aresta2)
     return produto;
 }
 
-function CalculoVetor(p, q)
-{
+function CalculoVetor(p, q) {
     let vetor = new Ponto();
     vetor.x = q.x - p.x;
     vetor.y = q.y - p.y;
@@ -21,8 +19,7 @@ function CalculoVetor(p, q)
     return vetor;
 }
 
-function CalculaNormal(v1)
-{
+function CalculaNormal(v1) {
     let norma;
     let vetor = new Ponto();
 
@@ -36,8 +33,7 @@ function CalculaNormal(v1)
     return vetor;
 }
 
-function CalculaV(Nnormalizado)
-{
+function CalculaV(Nnormalizado) {
     let v = new Ponto();
 
     v.x = Nnormalizado.y * Nnormalizado.x;
@@ -51,8 +47,7 @@ function CalculaV(Nnormalizado)
 
 }
 
-function CalculaU(N, V)
-{
+function CalculaU(N, V) {
     let produto = new Ponto();
     produto.x = (V.y * N.z) - (V.z * N.y);
     produto.y = (V.z * N.x) - (V.x * N.z);
@@ -61,8 +56,7 @@ function CalculaU(N, V)
     return CalculaNormal(produto);
 }
 
-function MultiplicaMatriz(MatrizA, MatrizB)
-{
+function MultiplicaMatriz(MatrizA, MatrizB) {
     let MatrizR = [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
@@ -70,10 +64,8 @@ function MultiplicaMatriz(MatrizA, MatrizB)
         [0, 0, 0, 0]
     ]
 
-    for (let i = 0; i < 4; i++)
-    {
-        for (let j = 0; j < 4; j++)
-        {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
             for (let k = 0; k < 4; k++)
                 MatrizR[i][j] += MatrizA[i][k] * MatrizB[k][j];
         }
@@ -82,13 +74,8 @@ function MultiplicaMatriz(MatrizA, MatrizB)
     return MatrizR;
 }
 
-function Visibilidade(N)
-{
 
-}
-
-function MatrizSRC(n, VRP)
-{
+function MatrizSRC(n, VRP) {
 
     let v = new Ponto();
     v = CalculaV(n);
@@ -98,9 +85,9 @@ function MatrizSRC(n, VRP)
     u = CalculaU(n, v);
 
     let matriz = [
-        [u.x, u.y, u.z, ((-VRP.x * u.x) + (-VRP.x * u.y) + (-VRP.x * u.z))],
-        [v.x, v.y, v.z, ((-VRP.y * v.x) + (-VRP.y * v.y) + (-VRP.y * v.z))],
-        [n.x, n.y, n.z, ((-VRP.z * n.x) + (-VRP.z * n.y) + (-VRP.z * n.z))],
+        [u.x, u.y, u.z, ((-VRP.x * u.x) + (-VRP.y * u.y) + (-VRP.z * u.z))],
+        [v.x, v.y, v.z, ((-VRP.x * v.x) + (-VRP.y * v.y) + (-VRP.z * v.z))],
+        [n.x, n.y, n.z, ((-VRP.x * n.x) + (-VRP.y * n.y) + (-VRP.z * n.z))],
         [0, 0, 0, 1]
     ]
 
@@ -108,8 +95,7 @@ function MatrizSRC(n, VRP)
     return matriz;
 }
 
-function MatrizPerspep(d)
-{
+function MatrizPerspep(d) {
     let matriz = [
         [1, 0, 0, 0],
         [0, 1, 0, 0],
@@ -120,8 +106,7 @@ function MatrizPerspep(d)
     return matriz;
 }
 
-function MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin)
-{
+function MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
     let matriz = [
         [(umax - umin) / (xmax - xmin), 0, 0, (-xmin * ((umax - umin) / (xmax - xmin)) + umin)],
         [0, (vmin - vmax) / (ymax - ymin), 0, (ymin * ((vmax - vmin) / (ymax - ymin)) + vmax)],
@@ -131,8 +116,7 @@ function MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin)
     return matriz;
 }
 
-function MatrizSRT(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin)
-{
+function MatrizSRT(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
 
     let MSRC = MatrizSRC(n, VRP);
     let MP = MatrizPerspep(d);
@@ -140,9 +124,10 @@ function MatrizSRT(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin)
 
     let MSRT = MultiplicaMatriz(Mjp, MP);
     MSRT = MultiplicaMatriz(MSRT, MSRC);
-    //console.log(MSRC);
-
+    console.log(MSRT);
 }
+
+
 
 const VRP = new Ponto(50, 15, 30);
 const P = new Ponto(20, 6, 15);
