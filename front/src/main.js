@@ -1,33 +1,28 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import api from './api.js';
+
 import { saveAs } from 'file-saver';
 
 //Variáveis de controle
 let isWire = false;
+const formData = new FormData();
 
-//Busca canvas
+//Canvas
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
 const height = canvas.height;
 const width = canvas.width;
 
-//Busca os Botões da Tela
+//Busca os Elementos do DOM
 const salvar = document.querySelector("button[name=salvar]");
 const wire = document.querySelector("button[name=wire]");
 const persp = document.querySelector("button[name=persp]");
-
+const imagefile = document.querySelector('input[type="file"]');
+const carregar = document.querySelector("button[name=carregar]")
 
 //Atribui funções a botões
 salvar.onclick = async () => {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:8081/file");
-  xhr.responseType = "blob";
 
-  xhr.onload = function () {
-      saveAs(this.response, 'index.html'); // saveAs is a part of FileSaver.js
-  };
-  xhr.send();
 };
 
 wire.onclick = () => {
@@ -44,13 +39,12 @@ persp.onclick = () => {
   main();
 }
 
-async function getPoints() {
-    let w = "";
-    if(isWire)
-        w ="w"
-    const response = await api.get(`/points${w}`)
+carregar.onclick = () => {
 
-    return response.data;
+}
+
+async function getPoints() {
+
 }
 
 
