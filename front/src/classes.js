@@ -331,8 +331,8 @@ class SRT {
     }
 
 }
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 const VPR = new Ponto(50, 15, 30);
 const P = new Ponto(20, 6, 15);
 const dp = 17;
@@ -342,7 +342,7 @@ const xmin = -8,
     ymax = 5;
 const umin = 0,
     umax = 320,
-    vmin = 0;
+    vmin = 0,
 vmax = 240;
 
 let vrpp = new Ponto();
@@ -371,4 +371,4 @@ sf = new SuperFace();
 sf.AddConjuntoFaces("sru", arrayFaces);
 
 sf.Imprime("sru");
->>>>>>> 81872e51b2750c29db6252713de6d5898726f652
+//>>>>>>> 81872e51b2750c29db6252713de6d5898726f652

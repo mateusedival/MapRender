@@ -3,7 +3,6 @@ import "regenerator-runtime/runtime";
 import {Ponto} from "./classes.js"
 import {download} from "./utils.js"
 
-import { saveAs } from 'file-saver';
 
 //Variáveis de controle
 let isWire = false;
