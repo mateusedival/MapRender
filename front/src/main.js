@@ -1,5 +1,7 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import {Ponto} from "./classes.js"
+import {download} from "./utils.js"
 
 import { saveAs } from 'file-saver';
 
@@ -21,8 +23,8 @@ const imagefile = document.querySelector('input[type="file"]');
 const carregar = document.querySelector("button[name=carregar]")
 
 //Atribui funções a botões
-salvar.onclick = async () => {
-
+salvar.onclick = () => {
+  download("heightmap.txt",JSON.stringify(getPoints()));
 };
 
 wire.onclick = () => {
@@ -41,11 +43,27 @@ persp.onclick = () => {
 
 carregar.onclick = () => {
 
+  let reader = new FileReader();
+
+  // Read file into memory as UTF-16
+  reader.readAsText(imagefile.files[0], "UTF-8");
+  reader.onload = function(event) {
+        let o = JSON.parse(event.target.result)
+        console.log(o);
+  };
+  reader.onerror = function(evt) {
+    if(evt.target.error.name == "NotReadableError") {
+      // The file could not be read
+    }
+  }
 }
 
-async function getPoints() {
-
+function getPoints() {
+  if(isWire)
+    return [new Ponto(596), new Ponto(100,300,40),new Ponto(300,200)];
+  return [new Ponto(), new Ponto(10,30,40),new Ponto(100,40)];
 }
+
 
 
 
@@ -56,9 +74,9 @@ function draw(points){
   });
 }
 
-async function main(){
+function main(){
 
-  const points = await getPoints();
+  const points =  getPoints();
 
   draw(points);
 }

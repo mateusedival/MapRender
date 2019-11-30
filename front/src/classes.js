@@ -1,4 +1,4 @@
-class Ponto {
+export class Ponto {
     constructor(x, y, z) {
         this.x = x || 0;
         this.y = y || 0;
@@ -72,7 +72,7 @@ class Face {
     }
 }
 
-class SuperFace {
+export class SuperFace {
     constructor() {
         this.faces = new Map();
     }
@@ -237,7 +237,7 @@ class Jorge {
         return MatrizR;
     }
 
-    //Não sei se ta funfando 
+    //Não sei se ta funfando
     NormalizaMatriz(Matriz) {
         let MatrizR = [
             [(Matriz[0][0] / Matriz[3][0]), (Matriz[0][1] / Matriz[3][1]), (Matriz[0][2] / Matriz[3][2])],

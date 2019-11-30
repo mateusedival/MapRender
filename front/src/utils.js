@@ -1,8 +1,7 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-export default function utils() {
-  function download(filename, text) {
+export function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
@@ -14,4 +13,3 @@ export default function utils() {
 
     document.body.removeChild(element);
   }
-}
