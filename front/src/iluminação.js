@@ -1,5 +1,3 @@
-import { S_IRGRP } from "constants";
-
 function SomConstante(Ka, Kd, Ks, Il, Ila, n, face, LVetor, N) {
     let Centro = new Ponto();
     Centro = CalculaCentroGeo(face);
@@ -40,7 +38,7 @@ function CalculaEspecular(LVetor, N, VRP, Centro) {
     S = S.Normaliza();
 
     let Is = ProdutoEscalar(R, S);
-
+    return Is;
 }
 
 function CalculaDifusa(LVetor, N, Centro) {
