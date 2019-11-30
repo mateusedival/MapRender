@@ -367,8 +367,8 @@ let face = new Face(a, b, c);
 let arrayFaces = [];
 arrayFaces.push(face);
 
-sf = new SuperFace();
-sf.AddConjuntoFaces("sru", arrayFaces);
+//sf = new SuperFace();
+//sf.AddConjuntoFaces("sru", arrayFaces);
 
-sf.Imprime("sru");
+//sf.Imprime("sru");
 //>>>>>>> 81872e51b2750c29db6252713de6d5898726f652

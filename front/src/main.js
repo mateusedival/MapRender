@@ -1,12 +1,16 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import {Ponto} from "./classes.js"
-import {download} from "./utils.js"
+import {Ponto} from "./classes.js";
+import {download} from "./utils.js";
+import Handler from "./handlers.js";
 
 
 //Variáveis de controle
 let isWire = false;
 const formData = new FormData();
+
+//handlers
+const {keyDown} = Handler;
 
 //Canvas
 const canvas = document.getElementById('canvas');
@@ -21,7 +25,7 @@ const persp = document.querySelector("button[name=persp]");
 const imagefile = document.querySelector('input[type="file"]');
 const carregar = document.querySelector("button[name=carregar]")
 
-//Atribui funções a botões
+//Atribui funções a elementos do canvas
 salvar.onclick = () => {
   download("heightmap.txt",JSON.stringify(getPoints()));
 };
@@ -57,14 +61,16 @@ carregar.onclick = () => {
   }
 }
 
+window.onkeydown = keyDown;
+
+
+
+//===========
 function getPoints() {
   if(isWire)
     return [new Ponto(596), new Ponto(100,300,40),new Ponto(300,200)];
   return [new Ponto(), new Ponto(10,30,40),new Ponto(100,40)];
 }
-
-
-
 
 function draw(points){
   ctx.clearRect(0,0,width,height);
@@ -73,11 +79,12 @@ function draw(points){
   });
 }
 
-function main(){
+function main(a = 0){
 
   const points =  getPoints();
 
   draw(points);
+  console.log(a);
 }
 
 main();
