@@ -27,7 +27,7 @@ const carregar = document.querySelector("button[name=carregar]")
 
 //Atribui funções a elementos do canvas
 salvar.onclick = () => {
-  download("heightmap.txt",JSON.stringify(getPoints()));
+  download("heightmap.jorginho",JSON.stringify(getPoints()));
 };
 
 wire.onclick = () => {
@@ -79,12 +79,11 @@ function draw(points){
   });
 }
 
-function main(a = 0){
+function main(){
 
   const points =  getPoints();
 
   draw(points);
-  console.log(a);
 }
 
 main();

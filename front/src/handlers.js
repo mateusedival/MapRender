@@ -4,10 +4,10 @@ import "regenerator-runtime/runtime";
 export default class Handler{
     static keyDown() {
       const cod = window.event.code;
-      alert(1);
+
       if(cod == "KeyA")
       {
-          console.log(cod);
+          alert(cod)
       }
       else if(cod == "KeyS")
       {
