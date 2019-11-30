@@ -128,6 +128,15 @@ class Vetor {
         return produto;
     }
 
+
+    ProdutoEscalar(outro) {
+        let produto;
+
+        produto = (this.i * outro.i) + (this.j * outro.j) + (this.k * outro.k);
+
+        return produto;
+    }
+
     Subtracao(outro) {
         return new Vetor(this.i - outro.i,
             this.j - outro.j,
@@ -322,3 +331,41 @@ class SRT {
     }
 
 }
+const VPR = new Ponto(50, 15, 30);
+const P = new Ponto(20, 6, 15);
+const dp = 17;
+const xmin = -8,
+    xmax = 8,
+    ymin = -5,
+    ymax = 5;
+const umin = 0,
+    umax = 320,
+    vmin = 0;
+vmax = 240;
+
+let vrpp = new Ponto();
+let VetorVRP = vrpp.CalculoVetor(VPR);
+VetorVRP = VetorVRP.Normaliza();
+
+//MatrizSRT(vrpp, VRP, dp, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
+
+let pa = new Ponto(1, 2, 3);
+let qa = new Ponto(3, 2, 1);
+let a = new Aresta(pa, qa);
+
+let pb = new Ponto(4, 5, 6);
+let qb = new Ponto(1, 2, 4);
+let b = new Aresta(pb, qb);
+
+let pc = new Ponto(9, 8, 4);
+let qc = new Ponto(1, 7, 3);
+let c = new Aresta(pc, qc);
+
+let face = new Face(a, b, c);
+let arrayFaces = [];
+arrayFaces.push(face);
+
+sf = new SuperFace();
+sf.AddConjuntoFaces("sru", arrayFaces);
+
+sf.Imprime("sru");
