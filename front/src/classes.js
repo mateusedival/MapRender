@@ -65,9 +65,9 @@ class Face
         this.c = c || new Aresta();
     }
 
-    get normal()
+    get Pontos ()
     {
-        return 0;
+        return [this.a.q, this.b.q, this.c.q];
     }
 
     Imprime()
