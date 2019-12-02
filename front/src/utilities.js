@@ -1,4 +1,4 @@
-function RandomizaHeightMap (x, y) 
+function RandomizaHeightMap (x, y)
 {
     let mat = [];
 
@@ -9,7 +9,7 @@ function RandomizaHeightMap (x, y)
         for (let j = 0; j < y; j++)
         {
             let value = Math.floor (Math.random() * 256);
-            
+
             line.push (value);
         }
 
@@ -19,7 +19,7 @@ function RandomizaHeightMap (x, y)
     return mat;
 }
 
-function MatrizPontosParaFaces (matrizPontos) 
+function MatrizPontosParaFaces (matrizPontos)
 {
     let vetorFaces = [];
 

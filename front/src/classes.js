@@ -1,4 +1,4 @@
-class Ponto
+export class Ponto
 {
     constructor(x, y, z)
     {
@@ -86,7 +86,7 @@ class Face
 
         return normal;
     }
-    
+
     get Pontos ()
     {
         return [this.a.q, this.b.q, this.c.q];
@@ -120,7 +120,7 @@ class Face
     }
 }
 
-class SuperFace
+export class SuperFace
 {
     constructor()
     {
@@ -185,7 +185,7 @@ class Vetor
         return produto;
     }
 
-    ProdutoEscalar(outro) 
+    ProdutoEscalar(outro)
     {
         return ((this.i * outro.i) + (this.j * outro.j) + (this.k * outro.k));
     }
@@ -216,7 +216,7 @@ class VRP extends Vetor
         this.pontoFocal = _pontoFocal || new Vetor (0, 0, -10);
 
         this.CalculaNVU();
-        
+
         this.n;
         this.v;
         this.u;
@@ -226,7 +226,7 @@ class VRP extends Vetor
     {
         if (!this.n)
             this.n = new Vetor();
-        
+
         this.n = this.Subtracao(this.pontoFocal);
         this.n.Normaliza();
 
@@ -237,7 +237,7 @@ class VRP extends Vetor
     {
         if (!this.v)
             this.v = new Vetor();
-        
+
         this.v.i = this.n.norm_j * this.n.norm_i;
         this.v.j = this.n.norm_j * this.n.norm_j;
         this.v.k = this.n.norm_j * this.n.norm_k;
@@ -255,7 +255,7 @@ class VRP extends Vetor
     {
         if (!this.u)
             this.u = new Vetor ();
-            
+
         this.u.norm_i = (this.v.norm_j * this.n.norm_k) - (this.v.norm_k * this.n.norm_j);
         this.u.norm_j = (this.v.norm_k * this.n.norm_i) - (this.v.norm_i * this.n.norm_k);
         this.u.norm_k = (this.v.norm_i * this.n.norm_j) - (this.v.norm_j * this.n.norm_i);
@@ -370,7 +370,7 @@ let a = faceABC.Pontos;
 // v.ImprimiNVU();
 
 // Retorna uma matriz com valores de 0 a 255 q simbolizam a altura e luminancia do pixel:
-function RandomizaHeightMap (x, y) 
+export function RandomizaHeightMap (x, y)
 {
     let mat = [];
 
@@ -381,7 +381,7 @@ function RandomizaHeightMap (x, y)
         for (let j = 0; j < y; j++)
         {
             let value = Math.floor (Math.random() * 256);
-            
+
             line.push (value);
         }
 
@@ -402,7 +402,7 @@ function HeigthmapParaMatrizPontos (matriz)
     {
         let linha = [];
 
-        for (let j = 0; j < matriz[i].length; j++) 
+        for (let j = 0; j < matriz[i].length; j++)
             linha.push (new Ponto (i, j, matriz[i][j]));
 
         pontos.push (linha);
@@ -411,7 +411,7 @@ function HeigthmapParaMatrizPontos (matriz)
     return pontos;
 }
 
-function MatrizPontosParaVetorFaces (matrizPontos) 
+export function MatrizPontosParaVetorFaces (matrizPontos)
 {
     let vetorFaces = [];
 
@@ -440,7 +440,7 @@ function MatrizPontosParaVetorFaces (matrizPontos)
                 a = new Aresta (matrizPontos[i][j], matrizPontos[i+1][j]);
                 b = new Aresta (matrizPontos[i+1][j], matrizPontos[i+1][j-1]);
                 c = new Aresta (matrizPontos[i+1][j-1], matrizPontos[i][j]);
-                
+
                 let f = new Face (a, b, c);
                 f.Vincula;
                 vetorFaces.push (f);
@@ -451,7 +451,7 @@ function MatrizPontosParaVetorFaces (matrizPontos)
     return vetorFaces;
 }
 
-function OcultaFaces (arrayFaces) 
+function OcultaFaces (arrayFaces)
 {
 
 }
@@ -474,7 +474,7 @@ for (let i = 0; i < pt.facesComum.length; ++i)
     pt.facesComum[i].Imprime();
     console.log();
 }
- 
+
 
 
 //<<<<<<< HEAD
@@ -499,7 +499,7 @@ VetorVRP = VetorVRP.Normaliza();
 
 let pa = new Ponto(1, 2, 3);
 let qa = new Ponto(3, 2, 1);
-let a = new Aresta(pa, qa);
+//let a = new Aresta(pa, qa);
 
 let pb = new Ponto(4, 5, 6);
 let qb = new Ponto(1, 2, 4);

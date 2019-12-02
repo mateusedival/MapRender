@@ -19,10 +19,7 @@
     <div id="right" class="int-box">
         <div id="right-upper">
           <div class="center" >
-            <button type="button" name="button">Random</button>
-          </div>
-          <div class="center">
-            <button type="button" name="button">Random</button>
+            <button type="button" name="random">Random</button>
           </div>
           <div class="center" >
             <button type="button" name="salvar">Salvar</button>
@@ -37,15 +34,57 @@
                 <div class="center">
                   <button type="button" name="wire">WireFrame</button>
 
-                  <button type="button" name="persp">Total</button>
+                  <button type="button" name="flat">Flat Shading</button>
+
+                  <button type="button" name="gouraud">Gouraud</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div id="rigth-lower" class="">
-
+        <div id="right-lower" class="">
+          <div class="center">
+            <div class="centerF">
+              <div class="center">
+                <div class="number-input">
+                  <label for="ka">Ka</label>
+                  <input type="number" name="ka" value="0.333">
+                </div>
+              </div>
+              <div class="center">
+                <div class="number-input">
+                  <label for="kd">Kd</label>
+                  <input type="number" name="kd" value="0.277">
+                </div>
+              </div>
+              <div class="center">
+                <div class="number-input">
+                  <label for="ks">Ks</label>
+                  <input type="number" name="ks" value="0.369">
+                </div>
+              </div>
+              <div class="center">
+                <div class="number-input">
+                  <label for="n">n</label>
+                  <input type="number" name="n" value="1.63">
+                </div>
+              </div>
+              <div class="center">
+                <div class="number-input">
+                  <label for="il">Il</label>
+                  <input type="number" name="il" value="120">
+                </div>
+              </div>
+              <div class="center">
+                <div class="number-input">
+                  <label for="ila">Ila</label>
+                  <input type="number" name="ila" value="80">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
   <script   src="./bundle.js">

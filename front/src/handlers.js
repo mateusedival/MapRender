@@ -62,6 +62,9 @@ export default class Handler{
 
       }
   }
+  static input_number(){
+    return 1;
+  }
 }
 /*
 - “A”: mover a câmera e o ponto focal para a esquerda (Pan);
