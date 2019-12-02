@@ -2,6 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import {Ponto, SuperFace,VRP, MatrizPontosParaVetorFaces, RandomizaHeightMap,HeigthmapParaMatrizPontos} from "./classes.js";
 import {download} from "./utils.js";
+import {MatrizSRT} from "./SRU_SRT.js";
 
 
 
@@ -65,7 +66,9 @@ gouraud.onclick = () => {
 
 random.onclick = () =>{
   let a = MatrizPontosParaVetorFaces(HeigthmapParaMatrizPontos(RandomizaHeightMap(width,height)));
-  superFace.AddConjuntoFaces("s", a );
+  superFace.AddConjuntoFaces("sru", a );
+  let b = MatrizSRT();
+  superFace.AddConjuntoFaces("srt",b);
   rng = true;
   main();
 };
@@ -96,7 +99,7 @@ window.onkeydown = keyDown;
 //===========
 function getPoints() {
   if(rng)
-    return superFace.faces.get("s");
+    return superFace.faces.get("sru");
 }
 
 function draw(faces){

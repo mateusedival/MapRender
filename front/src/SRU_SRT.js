@@ -116,10 +116,10 @@ function MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
     return matriz;
 }
 
-function MatrizSRT(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
+export function MatrizSRT( VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
 
-    let MSRC = MatrizSRC(n, VRP);
-    let MP = MatrizPerspep(d);
+    let MSRC = MatrizSRC(VRP.n, VRP);
+    //let MP = MatrizPerspep(d);
     let Mjp = MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
 
     let MSRT = MultiplicaMatriz(Mjp, MP);

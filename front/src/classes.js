@@ -411,7 +411,7 @@ export function HeigthmapParaMatrizPontos (matriz)
         let linha = [];
 
         for (let j = 0; j < matriz[i].length; j++)
-            linha.push (new Ponto (i, j, matriz[i][j]));
+            linha.push (new Ponto (i*5, j*5, matriz[i][j]));
 
         pontos.push (linha);
     }
