@@ -70,6 +70,17 @@ class Face
         return [this.a.q, this.b.q, this.c.q];
     }
 
+    get Centroide ()
+    {
+        let p = this.Pontos;
+
+        let x = (Math.max (p[0].x, p[1].x, p[2].x) + Math.min (p[0].x, p[1].x, p[2].x))/2.0;
+        let y = (Math.max (p[0].y, p[1].y, p[2].y) + Math.min (p[0].y, p[1].y, p[2].y))/2.0;
+        let z = (Math.max (p[0].z, p[1].z, p[2].z) + Math.min (p[0].z, p[1].z, p[2].z))/2.0;
+
+        return new Ponto (x, y, z);
+    }
+
     Imprime()
     {
         console.log("Aresta A-B");
