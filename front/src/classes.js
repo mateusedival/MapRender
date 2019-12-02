@@ -35,8 +35,8 @@ class Aresta
 {
     constructor(p, q)
     {
-        this.p = p || new Point();
-        this.q = q || new Point();
+        this.p = p || new Ponto();
+        this.q = q || new Ponto();
     }
 
     get vetor()
