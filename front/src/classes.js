@@ -207,7 +207,7 @@ class Vetor
     }
 }
 
-class VRP extends Vetor
+export class VRP extends Vetor
 {
     constructor(x, y, z, _pontoFocal)
     {
@@ -220,6 +220,14 @@ class VRP extends Vetor
         this.n;
         this.v;
         this.u;
+    }
+    desloca(x,y,z){
+      this.i+=x;
+      this.j+=y;
+      this.k+=z;
+    }
+    deslocaVRP(x,y,z) {
+        this.pontoFocal.Desloca(x,y,z);
     }
 
     CalculaN()
@@ -394,7 +402,7 @@ export function RandomizaHeightMap (x, y)
 // Retorna uma matriz com pontos onde:
 // X e Y simbolizam a posicao no loop
 // Z a altura do ponto
-function HeigthmapParaMatrizPontos (matriz)
+export function HeigthmapParaMatrizPontos (matriz)
 {
     let pontos = [];
 

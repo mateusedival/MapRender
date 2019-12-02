@@ -1,19 +1,16 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import {Ponto, SuperFace, MatrizPontosParaVetorFaces} from "./classes.js";
+import {Ponto, SuperFace,VRP, MatrizPontosParaVetorFaces, RandomizaHeightMap,HeigthmapParaMatrizPontos} from "./classes.js";
 import {download} from "./utils.js";
-import Handler from "./handlers.js";
-import {RandomizaHeightMap, MatrizPontosParaFaces} from "./utilities.js";
 
 
 
 //Variáveis de controle
 let state = 0;
+let rng = false;
 let superFace = new SuperFace();
 let ka,kd,ks,n,il,ila;
-
-//handlers
-const {keyDown, input_number} = Handler;
+let vrp = new VRP(0,0,0,new Ponto(10,10,10));
 
 //Canvas
 const canvas = document.getElementById('canvas');
@@ -41,7 +38,8 @@ const ila_input = document.querySelector('input[name="ila"]');
 
 //Atribui funções a elementos do canvas
 salvar.onclick = () => {
-  download("heightmap.jorginho",JSON.stringify(getPoints()));
+  console.log(superFace);
+  download("heightmap.jorginho",JSON.stringify(superFace.faces));
 };
 
 wire.onclick = () => {
@@ -66,7 +64,9 @@ gouraud.onclick = () => {
 }
 
 random.onclick = () =>{
-  superFace.AddConjuntoFaces("s",  MatrizPontosParaVetorFaces(MatrizPontosParaFaces(RandomizaHeightMap(width,height))));
+  let a = MatrizPontosParaVetorFaces(HeigthmapParaMatrizPontos(RandomizaHeightMap(width,height)));
+  superFace.AddConjuntoFaces("s", a );
+  rng = true;
   main();
 };
 
@@ -77,8 +77,10 @@ carregar.onclick = () => {
   // Read file into memory as UTF-16
   reader.readAsText(imagefile.files[0], "UTF-8");
   reader.onload = function(event) {
-        let o = JSON.parse(event.target.result)
+        let o = JSON.parse(event.target.result);
         console.log(o);
+        superFace = o;
+        main();
   };
   reader.onerror = function(evt) {
     if(evt.target.error.name == "NotReadableError") {
@@ -89,21 +91,20 @@ carregar.onclick = () => {
 
 window.onchange = ilu_update;
 
+window.onkeydown = keyDown;
+
 //===========
 function getPoints() {
-  if(state < 0) {
-    return superFace["s"];
-  }
-  if(state > 0)
-    return [new Ponto(), new Ponto(10,30,40),new Ponto(100,40)];
-    return [new Ponto(400,400), new Ponto(100,20,40),new Ponto(500,400)];
+  if(rng)
+    return superFace.faces.get("s");
 }
 
 function draw(faces){
   ctx.clearRect(0,0,width,height);
-  faces.map((face) =>{
-    face.Pontos.map((point) => {
-      ctx.fillRect(point.x, point.y,1,1)
+  faces.forEach((face) =>{
+    face.Pontos.forEach((point) => {
+      ctx.fillStyle = `rgb(${point.z}, ${point.z}, ${point.z})`;
+      ctx.fillRect(point.x, point.y,50,50)
     })
   });
 }
@@ -120,9 +121,77 @@ function ilu_update(){
 function main(){
   ilu_update();
 
-  const points =  getPoints();
+  const faces =  getPoints();
 
-  draw(points);
+  draw(faces);
 }
 
 main();
+
+
+function keyDown() {
+      const cod = window.event.code;
+
+      if(cod == "KeyA")
+      {
+        vrp.desloca(-1,0,0);
+        vrp.deslocaVRP(-1,0,0);
+      }
+      else if(cod == "KeyS")
+      {
+        vrp.desloca(1,0,0);
+        vrp.deslocaVRP(1,0,0);
+      }
+      else if(cod == "KeyQ")
+      {
+        vrp.desloca(0,1,0);
+        vrp.deslocaVRP(0,1,0);
+      }
+      else if(cod == "KeyW")
+      {
+        vrp.desloca(0,-1,0);
+        vrp.deslocaVRP(0,-1,0);
+
+      }
+      else if(cod == "KeyZ")
+      {
+
+      }
+      else if(cod == "KeyX")
+      {
+
+      }
+      else if(cod == "KeyD")
+      {
+        vrp.deslocaVRP(-1,0,0);
+      }
+      else if(cod == "KeyF")
+      {
+        vrp.deslocaVRP(1,0,0);
+      }
+      else if(cod == "KeyE")
+      {
+        vrp.deslocaVRP(0,1,0);
+      }
+      else if(cod == "KeyR")
+      {
+        vrp.deslocaVRP(0,-1,0);
+      }
+      else if(cod == "KeyG")
+      {
+          vrp.desloca(-1,0,0);
+      }
+      else if(cod == "KeyH")
+      {
+          vrp.desloca(1,0,0);
+      }
+      else if(cod == "KeyT")
+      {
+          vrp.desloca(0,1,0);
+      }
+      else if(cod == "KeyY")
+      {
+        vrp.desloca(0,-1,0);
+      }
+      main();
+}
