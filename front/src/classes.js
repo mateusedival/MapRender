@@ -5,7 +5,13 @@ class Ponto
         this.x = x || 0;
         this.y = y || 0;
         this.z = z || 0;
+
+        this.facesComum = [];
     }
+
+    get i () { return this.x;}
+    get j () { return this.j;}
+    get k () { return this.z;}
 
     CalculoVetor(outro)
     {
@@ -27,7 +33,7 @@ class Ponto
 
     Imprime()
     {
-        console.log("x: " + this.x + "\ny: " + this.y + "\nz: " + this.z);
+        console.log("{x: " + this.x + ", y: " + this.y + ", z: " + this.z + " }");
     };
 }
 
@@ -56,6 +62,7 @@ class Aresta
     }
 }
 
+
 class Face
 {
     constructor(a, b, c)
@@ -65,6 +72,21 @@ class Face
         this.c = c || new Aresta();
     }
 
+    get normal() {
+        let a = this.Pontos;
+
+        let Aresta1 = new Vetor();
+        Aresta1 = a[2].Subtracao(a[1]);
+
+        let Aresta2 = new Vetor();
+        Aresta2 = a[0].Subtracao(a[1]);
+
+        let normal = new Vetor();
+        normal = Aresta1.produtoEscalar(Aresta2);
+
+        return normal;
+    }
+    
     get Pontos ()
     {
         return [this.a.q, this.b.q, this.c.q];
@@ -81,20 +103,24 @@ class Face
         return new Ponto (x, y, z);
     }
 
+    get Vincula ()
+    {
+        let pontos = this.Pontos;
+
+        for (let i = 0; i < pontos.length; ++i)
+        {
+            if (!pontos.find((face) => (face === this)))
+                pontos[i].facesComum.push(this);
+        }
+    }
+
     Imprime()
     {
-        console.log("Aresta A-B");
-        this.a.Imprime();
-
-        console.log("Aresta B-C");
-        this.b.Imprime();
-
-        console.log("Aresta C-A");
-        this.c.Imprime();
+        this.Pontos.forEach ((p) => (p.Imprime()));
     }
 }
 
-export class SuperFace
+class SuperFace
 {
     constructor()
     {
@@ -133,6 +159,10 @@ class Vetor
         this.modulo;
     }
 
+    get x () { return this.i; }
+    get y () { return this.j; }
+    get z () { return this.k; }
+
     Normaliza()
     {
         this.modulo = Math.pow(this.i, 2) + Math.pow(this.j, 2) + Math.pow(this.k, 2);
@@ -157,19 +187,12 @@ class Vetor
 
     ProdutoEscalar(outro) 
     {
-        if (outro instanceof Vetor)
-            return ((this.i * outro.i) + (this.j * outro.j) + (this.k * outro.k));
-        else
-            return ((this.i * outro.x) + (this.j * outro.y) + (this.k * outro.z));
-
+        return ((this.i * outro.i) + (this.j * outro.j) + (this.k * outro.k));
     }
 
     Subtracao (outro)
     {
-        if (outro instanceof Ponto)
-            return new Vetor (this.i - outro.x, this.j - outro.y, this.k - outro.z);
-        else
-            return new Vetor (this.i - outro.i, this.j - outro.j, this.k - outro.k);
+        return new Vetor (this.i - outro.x, this.j - outro.y, this.k - outro.z);
     }
 
     // normalizado é uma booleana para qual versao do vetor vc quer ver
@@ -255,123 +278,205 @@ class VRP extends Vetor
     }
 }
 
-//DANIZITA COMEÇOU A ALTERAR ISSO
-class Jorge {
 
-    MultiplicaMatriz(matrizA, matrizB) {
-        let MatrizR = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ]
+// PONTOS
+let pontoA = new Ponto(30, 2, 25);
+let pontoB = new Ponto(35, 2, 25);
+let pontoC = new Ponto(25, 3, 18);
+let pontoD = new Ponto(20, 1, 23);
+let pontoE = new Ponto(30, 10, 22.5);
 
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                for (let k = 0; k < 4; k++)
-                    MatrizR[i][j] += MatrizA[i][k] * MatrizB[k][j];
-            }
+// ARESTAS
+let arestaAB = new Aresta(pontoA, pontoB);
+let arestaBA = arestaAB;
+
+let arestaAE = new Aresta(pontoA, pontoE);
+let arestaEA = arestaAE;
+
+let arestaAD = new Aresta(pontoA, pontoD);
+let arestaDA = arestaAD;
+
+let arestaBC = new Aresta(pontoB, pontoC);
+let arestaCB = arestaBC;
+
+let arestaBE = new Aresta(pontoB, pontoE);
+let arestaEB = arestaBE;
+
+let arestaCD = new Aresta(pontoC, pontoD);
+let arestaDC = arestaCD;
+
+let arestaCE = new Aresta(pontoC, pontoE);
+let arestaEC = arestaCE;
+
+let arestaDE = new Aresta(pontoD, pontoE);
+let arestaED = arestaDE;
+
+// face ABCD foi quebrada em duas: ABC e ACD
+let arestaAC = new Aresta(pontoA, pontoC);
+let arestaCA = arestaAC;
+
+// FACES
+let faceABC = new Face(arestaAB, arestaBC, arestaAC);
+faceABC.Vincula;
+let faceACB, faceBAC, faceBCA, faceCAB, faceCBA;
+faceACB = faceBAC = faceBCA = faceCAB = faceCBA = faceABC;
+
+let faceACD = new Face(arestaAC, arestaCD, arestaDA);
+faceACD.Vincula;
+let faceADC, faceCAD, faceCDA, faceDAC, faceDCA;
+faceADC = faceCAD = faceCDA = faceDAC = faceDCA = faceACD;
+
+let faceADE = new Face(arestaAE, arestaED, arestaDA);
+faceADE.Vincula;
+let faceAED, faceDAE, faceDEA, faceEAD, faceEDA;
+faceAED = faceDAE = faceDEA = faceEAD = faceEDA = faceADE;
+
+let faceABE = new Face(arestaAB, arestaBE, arestaEA);
+faceABE.Vincula;
+let faceAEB, faceBAE, faceBEA, faceEAB, faceEBA;
+faceAEB = faceBAE = faceBEA = faceEAB = faceEBA = faceABE;
+
+let faceBCE = new Face(arestaBC, arestaCE, arestaEB);
+let faceBEC, faceCBE, faceCEB, faceEBC, faceECB;
+faceBEC = faceCBE = faceCEB = faceEBC = faceECB = faceBCE;
+
+let faceCDE = new Face(arestaCD, arestaDE, arestaEC);
+let faceCED, faceDCE, faceDEC, faceECD, faceEDC;
+faceCED = faceDCE = faceDEC = faceECD = faceEDC = faceCDE;
+
+let teste = new Face(arestaAB, arestaBC, arestaAC);
+
+// pontoA.Imprime();
+// for (let i = 0; i < pontoA.facesComum.length; ++i)
+// {
+//     console.log("Face " + i + ":");
+//     pontoA.facesComum[i].Imprime();
+//     console.log();
+// }
+
+let a = faceABC.Pontos;
+
+// console.log (faceABC.Centroide);
+
+// a[0].x = 12; // X do primeiro ponto da face (aresta A)
+// a[2].z = 7; // Z do ultimo ponto da face (aresta C)
+
+// for (let i = 0; i < a.length; ++i)
+// console.log (a[i]);
+
+// console.log (faceABC.Centroide);
+
+// let v = new VRP(99, 36, 108, new Ponto(3, 6, 8));
+// v.ImprimiNVU();
+
+// Retorna uma matriz com valores de 0 a 255 q simbolizam a altura e luminancia do pixel:
+function RandomizaHeightMap (x, y) 
+{
+    let mat = [];
+
+    for (let i = 0; i < x; i++)
+    {
+        let line = [];
+
+        for (let j = 0; j < y; j++)
+        {
+            let value = Math.floor (Math.random() * 256);
+            
+            line.push (value);
         }
 
-        return MatrizR
+        mat.push (line);
     }
 
-    //Função para pegar os pontos da face e ja organizar eles em uma matriz
-    GeraMatriz(Face) {
-        let MatrizR = [
-            [Face.a.x, Face.b.x, Face.c.x],
-            [Face.a.y, Face.b.y, Face.c.y],
-            [Face.a.z, Face.b.z, Face.c.z],
-            [1, 1, 1, 1]
-        ]
-        return MatrizR;
+    return mat;
+}
+
+// Retorna uma matriz com pontos onde:
+// X e Y simbolizam a posicao no loop
+// Z a altura do ponto
+function HeigthmapParaMatrizPontos (matriz)
+{
+    let pontos = [];
+
+    for (let i = 0; i < matriz.length; i++)
+    {
+        let linha = [];
+
+        for (let j = 0; j < matriz[i].length; j++) 
+            linha.push (new Ponto (i, j, matriz[i][j]));
+
+        pontos.push (linha);
     }
 
-    //Não sei se ta funfando
-    NormalizaMatriz(Matriz) {
-        let MatrizR = [
-            [(Matriz[0][0] / Matriz[3][0]), (Matriz[0][1] / Matriz[3][1]), (Matriz[0][2] / Matriz[3][2])],
-            [(Matriz[1][0] / Matriz[3][0]), (Matriz[1][1] / Matriz[3][1]), (Matriz[1][2] / Matriz[3][2])],
-            [(Matriz[2][0] / Matriz[3][0]), (Matriz[2][1] / Matriz[3][1]), (Matriz[2][2] / Matriz[3][2])],
-            [(Matriz[3][0] / Matriz[3][0]), (Matriz[3][1] / Matriz[3][1]), (Matriz[3][2] / Matriz[3][2])]
-        ]
-        return MatrizR;
+    return pontos;
+}
+
+function MatrizPontosParaVetorFaces (matrizPontos) 
+{
+    let vetorFaces = [];
+
+    for (let i = 0; i < matrizPontos.length-1; ++i)
+    {
+        for (let j = 0; j < matrizPontos[i].length; ++j)
+        {
+            // Arestas
+            let a;
+            let b;
+            let c;
+
+            if (j < matrizPontos[i].length-1)
+            {
+                a = new Aresta (matrizPontos[i][j], matrizPontos[i][j+1]);
+                b = new Aresta (matrizPontos[i][j+1], matrizPontos[i+1][j]);
+                c = new Aresta (matrizPontos[i+1][j], matrizPontos[i][j]);
+
+                let f = new Face (a, b, c);
+                f.Vincula;
+                vetorFaces.push (f);
+            }
+
+            if (j != 0)
+            {
+                a = new Aresta (matrizPontos[i][j], matrizPontos[i+1][j]);
+                b = new Aresta (matrizPontos[i+1][j], matrizPontos[i+1][j-1]);
+                c = new Aresta (matrizPontos[i+1][j-1], matrizPontos[i][j]);
+                
+                let f = new Face (a, b, c);
+                f.Vincula;
+                vetorFaces.push (f);
+            }
+        }
     }
+
+    return vetorFaces;
+}
+
+function OcultaFaces (arrayFaces) 
+{
 
 }
 
-class SRT {
+let matH = RandomizaHeightMap (3, 3);
+let matP = HeigthmapParaMatrizPontos (matH);
 
-    MatrizSRC(n, VRP) {
-
-        let v = new Ponto();
-        v = CalculaV(n);
+let f = MatrizPontosParaVetorFaces (matP);
 
 
-        let u = new Ponto();
-        u = CalculaU(n, v);
+f.forEach((p) => console.log(p));
 
-        let matriz = [
-            [u.x, u.y, u.z, ((-VRP.x * u.x) + (-VRP.y * u.y) + (-VRP.z * u.z))],
-            [v.x, v.y, v.z, ((-VRP.x * v.x) + (-VRP.y * v.y) + (-VRP.z * v.z))],
-            [n.x, n.y, n.z, ((-VRP.x * n.x) + (-VRP.y * n.y) + (-VRP.z * n.z))],
-            [0, 0, 0, 1]
-        ]
+let pt = f[0].Pontos[0];
+console.log ("PONTO 0:");
+console.log (pt);
 
-        return matriz;
-    }
-
-    MatrizPerspep(d) {
-        let matriz = [
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, -1 / d, 0]
-        ]
-
-        return matriz;
-    }
-
-
-    MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
-        let matriz = [
-            [(umax - umin) / (xmax - xmin), 0, 0, (-xmin * ((umax - umin) / (xmax - xmin)) + umin)],
-            [0, (vmin - vmax) / (ymax - ymin), 0, (ymin * ((vmax - vmin) / (ymax - ymin)) + vmax)],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ]
-        return matriz;
-    }
-
-    MatrizSRTPersp(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
-
-        let MSRC = MatrizSRC(n, VRP);
-        let MP = MatrizPerspep(d);
-        let Mjp = MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
-
-        let MSRT = MultiplicaMatriz(Mjp, MP);
-        MSRT = MultiplicaMatriz(MSRT, MSRC);
-        return MSRT;
-    }
-
-    MatrizSRTAxo(n, VRP, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
-
-        let MSRC = MatrizSRC(n, VRP);
-        let Mjp = MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
-        let MSRT = MultiplicaMatriz(Mjp, MSRC);
-
-        return MSRT;
-    }
-
-    Converte(MSRT, face) {
-        let MatrizPonto = GeraMatriz(face);
-        MatrizPonto = MultiplicaMatriz(MSRT, MatrizPonto);
-        MatrizPonto = NormalizaMatriz(MatrizPonto);
-
-        return MatrizPonto;
-    }
-
+for (let i = 0; i < pt.facesComum.length; ++i)
+{
+    console.log("Face " + i + ":");
+    pt.facesComum[i].Imprime();
+    console.log();
 }
+ 
+
+
 //<<<<<<< HEAD
 //=======
 const VPR = new Ponto(50, 15, 30);
