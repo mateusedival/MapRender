@@ -221,6 +221,16 @@ export class VRP extends Vetor
         this.v;
         this.u;
     }
+    get x(){
+      return this.i;
+    }
+    get y(){
+      return this.j;
+    }
+    get z(){
+      return this.k;
+    }
+
     desloca(x,y,z){
       this.i+=x;
       this.j+=y;
@@ -483,6 +493,125 @@ for (let i = 0; i < pt.facesComum.length; ++i)
     console.log();
 }
 
+class Jorge {
+
+    MultiplicaMatriz(matrizA, matrizB) {
+        let MatrizR = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                for (let k = 0; k < 4; k++)
+                    MatrizR[i][j] += MatrizA[i][k] * MatrizB[k][j];
+            }
+        }
+
+        return MatrizR
+    }
+
+    //Função para pegar os pontos da face e ja organizar eles em uma matriz
+    GeraMatriz(Face) {
+        let MatrizR = [
+            [Face.a.x, Face.b.x, Face.c.x],
+            [Face.a.y, Face.b.y, Face.c.y],
+            [Face.a.z, Face.b.z, Face.c.z],
+            [1, 1, 1, 1]
+        ]
+        return MatrizR;
+    }
+
+    //Não sei se ta funfando
+    NormalizaMatriz(Matriz) {
+        let MatrizR = [
+            [(Matriz[0][0] / Matriz[3][0]), (Matriz[0][1] / Matriz[3][1]), (Matriz[0][2] / Matriz[3][2])],
+            [(Matriz[1][0] / Matriz[3][0]), (Matriz[1][1] / Matriz[3][1]), (Matriz[1][2] / Matriz[3][2])],
+            [(Matriz[2][0] / Matriz[3][0]), (Matriz[2][1] / Matriz[3][1]), (Matriz[2][2] / Matriz[3][2])],
+            [(Matriz[3][0] / Matriz[3][0]), (Matriz[3][1] / Matriz[3][1]), (Matriz[3][2] / Matriz[3][2])]
+        ]
+        return MatrizR;
+    }
+
+}
+
+export class SRT {
+
+     MatrizSRC(n, vrp) {
+
+       console.log(vrp);
+        n = vrp.CalculaN();
+
+        let v = new Ponto();
+        v = vrp.CalculaV();
+
+
+        let u = new Ponto();
+        u = vrp.CalculaU();
+
+        let matriz = [
+            [u.x, u.y, u.z, ((-vrp.x * u.x) + (-vrp.y * u.y) + (-vrp.z * u.z))],
+            [v.x, v.y, v.z, ((-vrp.x * v.x) + (-vrp.y * v.y) + (-vrp.z * v.z))],
+            [n.x, n.y, n.z, ((-vrp.x * n.x) + (-vrp.y * n.y) + (-vrp.z * n.z))],
+            [0, 0, 0, 1]
+        ]
+
+        return matriz;
+    }
+
+    MatrizPerspep(d) {
+        let matriz = [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, -1 / d, 0]
+        ]
+
+        return matriz;
+    }
+
+
+    MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
+        let matriz = [
+            [(umax - umin) / (xmax - xmin), 0, 0, (-xmin * ((umax - umin) / (xmax - xmin)) + umin)],
+            [0, (vmin - vmax) / (ymax - ymin), 0, (ymin * ((vmax - vmin) / (ymax - ymin)) + vmax)],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ]
+        return matriz;
+    }
+
+    MatrizSRTPersp(n, VRP, d, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
+
+        let MSRC = MatrizSRC(n, VRP);
+        let MP = MatrizPerspep(d);
+        let Mjp = MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
+
+        let MSRT = MultiplicaMatriz(Mjp, MP);
+        MSRT = MultiplicaMatriz(MSRT, MSRC);
+        return MSRT;
+    }
+
+     MatrizSRTAxo(n, vrp, xmax, xmin, ymax, ymin, umax, umin, vmax, vmin) {
+
+        let MSRC = this.MatrizSRC(n, vrp);
+        let Mjp = MatrizJP(xmax, xmin, ymax, ymin, umax, umin, vmax, vmin);
+        let MSRT = MultiplicaMatriz(Mjp, MSRC);
+
+        return MSRT;
+    }
+
+     Converte(MSRT, face) {
+        let MatrizPonto = GeraMatriz(face);
+        MatrizPonto = MultiplicaMatriz(MSRT, MatrizPonto);
+        MatrizPonto = NormalizaMatriz(MatrizPonto);
+
+        return MatrizPonto;
+    }
+
+}
 
 
 //<<<<<<< HEAD

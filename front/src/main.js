@@ -1,8 +1,8 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import {Ponto, SuperFace,VRP, MatrizPontosParaVetorFaces, RandomizaHeightMap,HeigthmapParaMatrizPontos} from "./classes.js";
+import {Ponto,SRT, SuperFace,VRP, MatrizPontosParaVetorFaces, RandomizaHeightMap,HeigthmapParaMatrizPontos} from "./classes.js";
 import {download} from "./utils.js";
-import {MatrizSRT} from "./SRU_SRT.js";
+
 
 
 
@@ -12,12 +12,14 @@ let rng = false;
 let superFace = new SuperFace();
 let ka,kd,ks,n,il,ila;
 let vrp = new VRP(0,0,0,new Ponto(10,10,10));
+let srt = new SRT();
 
 //Canvas
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
 const height = canvas.height;
 const width = canvas.width;
+
 
 //Busca os Elementos do DOM
 //buttons
@@ -67,7 +69,7 @@ gouraud.onclick = () => {
 random.onclick = () =>{
   let a = MatrizPontosParaVetorFaces(HeigthmapParaMatrizPontos(RandomizaHeightMap(width,height)));
   superFace.AddConjuntoFaces("sru", a );
-  let b = MatrizSRT();
+  let b = SRU_SRT(a);
   superFace.AddConjuntoFaces("srt",b);
   rng = true;
   main();
@@ -99,7 +101,7 @@ window.onkeydown = keyDown;
 //===========
 function getPoints() {
   if(rng)
-    return superFace.faces.get("sru");
+    return superFace.faces.get("srt");
 }
 
 function draw(faces){
@@ -197,4 +199,9 @@ function keyDown() {
         vrp.desloca(0,-1,0);
       }
       main();
+}
+
+function SRU_SRT(faces){
+  let M = srt.MatrizSRTAxo(VRP.n,VRP,width,0,height,0,width,0,height,0);
+  srt.Converte(M,faces);
 }
